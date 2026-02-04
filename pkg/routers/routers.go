@@ -1,8 +1,8 @@
 package routers
 
 import (
-	"BackendTemplate/pkg/api"
-	"BackendTemplate/pkg/middlewares"
+	"Rshell/pkg/api"
+	"Rshell/pkg/middlewares"
 	"embed"
 	"html/template"
 	"io/fs"

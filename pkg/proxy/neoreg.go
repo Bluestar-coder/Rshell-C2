@@ -1,8 +1,8 @@
 package proxy
 
 import (
-	"BackendTemplate/pkg/logger"
-	"BackendTemplate/pkg/proxy/neoreg"
+	"Rshell/pkg/logger"
+	"Rshell/pkg/proxy/neoreg"
 	"net"
 	"sync"
 )

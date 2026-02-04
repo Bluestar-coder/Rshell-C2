@@ -1,8 +1,8 @@
 package api
 
 import (
-	"BackendTemplate/pkg/common"
-	"BackendTemplate/pkg/database"
+	"Rshell/pkg/common"
+	"Rshell/pkg/database"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

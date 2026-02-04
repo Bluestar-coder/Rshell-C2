@@ -1,9 +1,9 @@
 package api
 
 import (
-	"BackendTemplate/pkg/database"
-	"BackendTemplate/pkg/encrypt"
-	"BackendTemplate/pkg/logger"
+	"Rshell/pkg/database"
+	"Rshell/pkg/encrypt"
+	"Rshell/pkg/logger"
 	"bytes"
 	"embed"
 	"github.com/gin-gonic/gin"

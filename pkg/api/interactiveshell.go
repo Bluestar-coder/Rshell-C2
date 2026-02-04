@@ -1,12 +1,12 @@
 package api
 
 import (
-	"BackendTemplate/pkg/command"
-	"BackendTemplate/pkg/common"
-	"BackendTemplate/pkg/interactive" // 使用新的interactive包
-	"BackendTemplate/pkg/logger"
-	"BackendTemplate/pkg/sendcommand"
-	"BackendTemplate/pkg/utils"
+	"Rshell/pkg/command"
+	"Rshell/pkg/common"
+	"Rshell/pkg/interactive" // 使用新的interactive包
+	"Rshell/pkg/logger"
+	"Rshell/pkg/sendcommand"
+	"Rshell/pkg/utils"
 	"bytes"
 	"encoding/binary"
 	"encoding/json"

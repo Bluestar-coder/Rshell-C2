@@ -1,10 +1,10 @@
 package api
 
 import (
-	"BackendTemplate/pkg/database"
-	"BackendTemplate/pkg/encrypt"
-	"BackendTemplate/pkg/godonut"
-	"BackendTemplate/pkg/logger"
+	"Rshell/pkg/database"
+	"Rshell/pkg/encrypt"
+	"Rshell/pkg/godonut"
+	"Rshell/pkg/logger"
 	"bytes"
 	"fmt"
 	"github.com/gin-gonic/gin"

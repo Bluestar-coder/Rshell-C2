@@ -1,6 +1,6 @@
 package webhooks
 
-import "BackendTemplate/pkg/database"
+import "Rshell/pkg/database"
 
 func CheckEnable() (exist bool, key string) {
 	var Setting database.Settings

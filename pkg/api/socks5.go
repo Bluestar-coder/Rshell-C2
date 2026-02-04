@@ -1,9 +1,9 @@
 package api
 
 import (
-	"BackendTemplate/pkg/database"
-	"BackendTemplate/pkg/logger"
-	"BackendTemplate/pkg/proxy"
+	"Rshell/pkg/database"
+	"Rshell/pkg/logger"
+	"Rshell/pkg/proxy"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net"

@@ -1,14 +1,14 @@
 package oss
 
 import (
-	"BackendTemplate/pkg/command"
-	"BackendTemplate/pkg/connection"
-	"BackendTemplate/pkg/database"
-	"BackendTemplate/pkg/encrypt"
-	"BackendTemplate/pkg/interactive"
-	"BackendTemplate/pkg/logger"
-	"BackendTemplate/pkg/utils"
-	"BackendTemplate/pkg/webhooks"
+	"Rshell/pkg/command"
+	"Rshell/pkg/connection"
+	"Rshell/pkg/database"
+	"Rshell/pkg/encrypt"
+	"Rshell/pkg/interactive"
+	"Rshell/pkg/logger"
+	"Rshell/pkg/utils"
+	"Rshell/pkg/webhooks"
 	"encoding/base64"
 	"encoding/binary"
 	"fmt"

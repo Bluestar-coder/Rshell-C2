@@ -1,4 +1,4 @@
-module BackendTemplate
+module Rshell
 
 go 1.21
 

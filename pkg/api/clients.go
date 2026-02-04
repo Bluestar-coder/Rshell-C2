@@ -1,12 +1,12 @@
 package api
 
 import (
-	"BackendTemplate/pkg/command"
-	"BackendTemplate/pkg/database"
-	"BackendTemplate/pkg/godonut"
-	"BackendTemplate/pkg/logger"
-	"BackendTemplate/pkg/sendcommand"
-	"BackendTemplate/pkg/utils"
+	"Rshell/pkg/command"
+	"Rshell/pkg/database"
+	"Rshell/pkg/godonut"
+	"Rshell/pkg/logger"
+	"Rshell/pkg/sendcommand"
+	"Rshell/pkg/utils"
 	"context"
 	"encoding/binary"
 	"github.com/gin-gonic/gin"

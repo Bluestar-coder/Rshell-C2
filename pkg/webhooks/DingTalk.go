@@ -1,6 +1,6 @@
 package webhooks
 
-import "BackendTemplate/pkg/database"
+import "Rshell/pkg/database"
 
 func SendDingTalk(Client database.Clients) {
 

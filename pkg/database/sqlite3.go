@@ -1,7 +1,7 @@
 package database
 
 import (
-	"BackendTemplate/pkg/logger"
+	"Rshell/pkg/logger"
 	"fmt"
 	"log"
 	"os"

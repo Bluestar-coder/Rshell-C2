@@ -1,7 +1,7 @@
 package godonut
 
 import (
-	"BackendTemplate/pkg/godonut/gonut"
+	"Rshell/pkg/godonut/gonut"
 )
 
 func GenShellcode(fileContent []byte, runParams string, architecture string) ([]byte, error) {

@@ -1,9 +1,9 @@
 package neoreg
 
 import (
-	"BackendTemplate/pkg/command"
-	"BackendTemplate/pkg/logger"
-	"BackendTemplate/pkg/sendcommand"
+	"Rshell/pkg/command"
+	"Rshell/pkg/logger"
+	"Rshell/pkg/sendcommand"
 	"context"
 	"crypto/md5"
 	"crypto/rand"

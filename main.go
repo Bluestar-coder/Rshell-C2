@@ -1,11 +1,11 @@
 package main
 
 import (
-	"BackendTemplate/pkg/database"
-	"BackendTemplate/pkg/encrypt"
-	"BackendTemplate/pkg/logger"
-	"BackendTemplate/pkg/routers"
-	"BackendTemplate/pkg/utils"
+	"Rshell/pkg/database"
+	"Rshell/pkg/encrypt"
+	"Rshell/pkg/logger"
+	"Rshell/pkg/routers"
+	"Rshell/pkg/utils"
 	"embed"
 	"flag"
 	"io/fs"

@@ -1,9 +1,9 @@
 package webhooks
 
 import (
-	"BackendTemplate/pkg/config"
-	"BackendTemplate/pkg/database"
-	"BackendTemplate/pkg/logger"
+	"Rshell/pkg/config"
+	"Rshell/pkg/database"
+	"Rshell/pkg/logger"
 	"bytes"
 	"encoding/json"
 	"fmt"

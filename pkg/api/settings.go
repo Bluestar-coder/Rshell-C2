@@ -1,7 +1,7 @@
 package api
 
 import (
-	"BackendTemplate/pkg/database"
+	"Rshell/pkg/database"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

@@ -1,8 +1,8 @@
 package middlewares
 
 import (
-	"BackendTemplate/pkg/common"
-	"BackendTemplate/pkg/database"
+	"Rshell/pkg/common"
+	"Rshell/pkg/database"
 	"encoding/base64"
 	"net/http"
 	"strings"

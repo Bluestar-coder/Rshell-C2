@@ -1,8 +1,8 @@
 package oss
 
 import (
-	"BackendTemplate/pkg/encrypt"
-	"BackendTemplate/pkg/logger"
+	"Rshell/pkg/encrypt"
+	"Rshell/pkg/logger"
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"io/ioutil"
 	"os"

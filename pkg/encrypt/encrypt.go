@@ -1,7 +1,7 @@
 package encrypt
 
 import (
-	"BackendTemplate/pkg/database"
+	"Rshell/pkg/database"
 	"crypto/aes"
 	"crypto/cipher"
 	"crypto/md5"

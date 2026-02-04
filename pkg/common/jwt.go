@@ -1,7 +1,7 @@
 package common
 
 import (
-	"BackendTemplate/pkg/logger"
+	"Rshell/pkg/logger"
 	"crypto/rand"
 	"time"
 

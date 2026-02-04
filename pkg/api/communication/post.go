@@ -1,13 +1,13 @@
 package communication
 
 import (
-	"BackendTemplate/pkg/command"
-	"BackendTemplate/pkg/config"
-	"BackendTemplate/pkg/database"
-	"BackendTemplate/pkg/encrypt"
-	"BackendTemplate/pkg/interactive"
-	"BackendTemplate/pkg/logger"
-	"BackendTemplate/pkg/utils"
+	"Rshell/pkg/command"
+	"Rshell/pkg/config"
+	"Rshell/pkg/database"
+	"Rshell/pkg/encrypt"
+	"Rshell/pkg/interactive"
+	"Rshell/pkg/logger"
+	"Rshell/pkg/utils"
 	"encoding/binary"
 	"encoding/json"
 	"fmt"

@@ -1,8 +1,8 @@
 package api
 
 import (
-	"BackendTemplate/pkg/database"
-	"BackendTemplate/pkg/godonut"
+	"Rshell/pkg/database"
+	"Rshell/pkg/godonut"
 	"bytes"
 	"embed"
 	"encoding/hex"

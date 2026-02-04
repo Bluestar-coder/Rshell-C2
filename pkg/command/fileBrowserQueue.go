@@ -1,7 +1,7 @@
 package command
 
 import (
-	"BackendTemplate/pkg/utils"
+	"Rshell/pkg/utils"
 	"strings"
 	"sync"
 )

@@ -1,13 +1,13 @@
 package api
 
 import (
-	"BackendTemplate/pkg/api/communication"
-	k "BackendTemplate/pkg/connection/kcp"
-	"BackendTemplate/pkg/connection/oss"
-	"BackendTemplate/pkg/connection/tcp"
-	"BackendTemplate/pkg/connection/websocket"
-	"BackendTemplate/pkg/database"
-	"BackendTemplate/pkg/logger"
+	"Rshell/pkg/api/communication"
+	k "Rshell/pkg/connection/kcp"
+	"Rshell/pkg/connection/oss"
+	"Rshell/pkg/connection/tcp"
+	"Rshell/pkg/connection/websocket"
+	"Rshell/pkg/database"
+	"Rshell/pkg/logger"
 	"context"
 	"fmt"
 	"github.com/gin-gonic/gin"

@@ -2,8 +2,8 @@
 package interactive
 
 import (
-	"BackendTemplate/pkg/logger"
-	"BackendTemplate/pkg/utils"
+	"Rshell/pkg/logger"
+	"Rshell/pkg/utils"
 	"bytes"
 	"encoding/json"
 	"github.com/gorilla/websocket"
