@@ -145,7 +145,8 @@ windows内存执行 支持Execute Assembly(.net程序内存执行)、Inline Bin(
 - [ ] 笔记功能增加图床
 - [ ] 笔记md格式所见即所得
 - [ ] 一键信息收集，收集信息内容直接保存到笔记中
-- [ ] 丰富上线提醒的方式
+- [ ] 丰富上线提醒的方式（邮箱、钉钉、telegram等）
+- [ ] 增加正向上线方式 [#26](https://github.com/Rubby2001/Rshell---A-Cross-Platform-C2/issues/26)
 - [ ] 增加插件模块  [#9](https://github.com/Rubby2001/Rshell---A-Cross-Platform-C2/issues/9)
 - [ ] 增加开机启动等插件是否合适  [#9](https://github.com/Rubby2001/Rshell---A-Cross-Platform-C2/issues/9)
 - [x] 通讯流量实现自定义配置或随机密钥，增加逆向解密难度
