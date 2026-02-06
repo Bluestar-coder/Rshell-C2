@@ -14,21 +14,21 @@ Rshell是一款开源的golang编写的支持多平台的C2框架，旨在帮助
 
 **默认账号密码：admin/admin123**
 
-![image-20260205112117018](/home/Rubby/Data/Pentest/Creating/Rshell/Rshell---A-Cross-Platform-C2/assets/image-20260205112117018.png)
+![image-20260205112117018](./assets/image-20260205112117018.png)
 
-![image-20260205112151336](/home/Rubby/Data/Pentest/Creating/Rshell/Rshell---A-Cross-Platform-C2/assets/image-20260205112151336.png)
+![image-20260205112151336](./assets/image-20260205112151336.png)
 
 ## 主题修改
 
 ### 修改主题颜色
 
-![image-20260205112303486](/home/Rubby/Data/Pentest/Creating/Rshell/Rshell---A-Cross-Platform-C2/assets/image-20260205112303486.png)
+![image-20260205112303486](./assets/image-20260205112303486.png)
 
 ### 添加背景图片
 
-![image-20260205112328685](/home/Rubby/Data/Pentest/Creating/Rshell/Rshell---A-Cross-Platform-C2/assets/image-20260205112328685.png)
+![image-20260205112328685](./assets/image-20260205112328685.png)
 
-![image-20260205112423810](/home/Rubby/Data/Pentest/Creating/Rshell/Rshell---A-Cross-Platform-C2/assets/image-20260205112423810.png)
+![image-20260205112423810](./assets/image-20260205112423810.png)
 
 
 
@@ -36,9 +36,9 @@ Rshell是一款开源的golang编写的支持多平台的C2框架，旨在帮助
 
 目前支持websocket、tcp、kcp、http、oss协议监听：
 
-![image-20260205112214388](/home/Rubby/Data/Pentest/Creating/Rshell/Rshell---A-Cross-Platform-C2/assets/image-20260205112214388.png)
+![image-20260205112214388](./assets/image-20260205112214388.png)
 
-![image-20260205112507887](/home/Rubby/Data/Pentest/Creating/Rshell/Rshell---A-Cross-Platform-C2/assets/image-20260205112507887.png)
+![image-20260205112507887](./assets/image-20260205112507887.png)
 
 ## 生成客户端
 
