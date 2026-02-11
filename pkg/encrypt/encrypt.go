@@ -9,11 +9,14 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"fmt"
-	"golang.org/x/crypto/curve25519"
 	"io"
 	r "math/rand"
 	"strconv"
+
+	"golang.org/x/crypto/curve25519"
 )
+
+var PublicKeyMap = make(map[string]string)
 
 // 密钥生成
 func generateKey() []byte {
@@ -84,9 +87,14 @@ func DecryptNormal(data []byte) ([]byte, error) {
 }
 
 func Encrypt(data []byte, uid string) ([]byte, error) {
-	var client database.Clients
-	database.Engine.Where("uid = ?", uid).Get(&client)
-	pubkeyBytes, _ := base64.StdEncoding.DecodeString(client.PublicKey)
+	value, exists := PublicKeyMap[uid]
+	if !exists || value == "" {
+		var client database.Clients
+		database.Engine.Where("uid = ?", uid).Get(&client)
+		PublicKeyMap[uid] = client.PublicKey
+	}
+
+	pubkeyBytes, _ := base64.StdEncoding.DecodeString(PublicKeyMap[uid])
 
 	var pubKey [32]byte
 	copy(pubKey[:], pubkeyBytes[:32])
@@ -101,9 +109,14 @@ func Encrypt(data []byte, uid string) ([]byte, error) {
 
 func Decrypt(data []byte, uid string) ([]byte, error) {
 	if len(data) > 0 {
-		var client database.Clients
-		database.Engine.Where("uid = ?", uid).Get(&client)
-		pubkeyBytes, _ := base64.StdEncoding.DecodeString(client.PublicKey)
+		value, exists := PublicKeyMap[uid]
+		if !exists || value == "" {
+			var client database.Clients
+			database.Engine.Where("uid = ?", uid).Get(&client)
+			PublicKeyMap[uid] = client.PublicKey
+		}
+
+		pubkeyBytes, _ := base64.StdEncoding.DecodeString(PublicKeyMap[uid])
 
 		var pubKey [32]byte
 		copy(pubKey[:], pubkeyBytes[:32])

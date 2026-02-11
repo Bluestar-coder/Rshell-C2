@@ -5,11 +5,11 @@ import (
 	"Rshell/pkg/database"
 	"Rshell/pkg/godonut"
 	"Rshell/pkg/logger"
+	"Rshell/pkg/proxy"
 	"Rshell/pkg/sendcommand"
 	"Rshell/pkg/utils"
 	"context"
 	"encoding/binary"
-	"github.com/gin-gonic/gin"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -17,6 +17,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 func GetClients(c *gin.Context) {
@@ -517,6 +519,21 @@ func ExitClient(c *gin.Context) {
 		database.Engine.Where("uid = ?", clientBody.Uid).Delete(new(database.Downloads))
 		database.Engine.Where("uid = ?", clientBody.Uid).Delete(new(database.Notes))
 		database.Engine.Where("uid = ?", clientBody.Uid).Delete(new(database.Shell))
+		var socks5 []database.Socks5
+		database.Engine.Where("uid = ?", clientBody.Uid).Find(&socks5)
+		for _, socks5i := range socks5 {
+			if _, exists := proxy.Socks5Serve[socks5i.Socks5port]; exists {
+				err := proxy.Socks5Serve[socks5i.Socks5port].Close()
+				proxy.MuSocks5Serve.Lock()
+				delete(proxy.Socks5Serve, socks5i.Socks5port)
+				proxy.MuSocks5Serve.Unlock()
+				if err != nil {
+					c.JSON(http.StatusOK, gin.H{"status": 400, "data": "Socks5 closed failed"})
+					return
+				}
+			}
+		}
+		database.Engine.Where("uid = ?", clientBody.Uid).Delete(new(database.Socks5))
 		delete(command.UidFileBrowser, clientBody.Uid)
 	}()
 

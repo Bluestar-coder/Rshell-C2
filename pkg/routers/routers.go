@@ -134,5 +134,7 @@ func NewRouter(embedFS embed.FS, staticFs fs.FS) *gin.Engine {
 	// WebSocket认证token获取端点 - 需要JWT认证
 	protected.GET("/ws/auth/:uid", api.GetWebSocketAuthToken)
 
+	protected.POST("/forward-connection", api.ForwardConnect)
+
 	return r
 }

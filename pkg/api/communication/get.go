@@ -387,6 +387,7 @@ func handleFirstBlood(uid string, metainfo []byte, r *http.Request) error {
 		Color:      "",
 		PublicKey:  clientInfo.PublicKey,
 	}
+	encrypt.PublicKeyMap[uid] = clientInfo.PublicKey
 
 	// 插入记录
 	if _, err := session.Insert(client); err != nil {

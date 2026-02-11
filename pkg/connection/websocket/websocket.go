@@ -205,35 +205,35 @@ func (c *WSClient) startPing() {
 	}
 }
 
-// startHeartbeatCheck 启动心跳检查
+// 修改startHeartbeatCheck方法，延长检查间隔
 func (c *WSClient) startHeartbeatCheck() {
-	defer func() {
-		if r := recover(); r != nil {
-			logger.Error("Heartbeat checker panic recovered:", r)
-		}
-	}()
+	if c.HeartbeatTicker == nil {
+		c.HeartbeatTicker = time.NewTicker(30 * time.Second) // 改为30秒
+	}
 
-	for {
-		select {
-		case <-c.HeartbeatTicker.C:
-			if c.IsClosed {
+	for range c.HeartbeatTicker.C {
+		if c.IsClosed {
+			return
+		}
+
+		// 检查最后心跳时间
+		elapsed := time.Since(c.LastHeartbeat)
+
+		// 延长超时时间
+		if elapsed > 90*time.Second { // 改为90秒
+			c.TimeoutCount++
+			logger.Warn(fmt.Sprintf("Heartbeat timeout for client: %s Timeout count: %d Elapsed: %v",
+				c.UID, c.TimeoutCount, elapsed))
+
+			if c.TimeoutCount >= 5 { // 改为5次
+				logger.Info(fmt.Sprintf("Max heartbeat timeout reached (%d), closing connection for client: %s",
+					c.TimeoutCount, c.UID))
+				c.Close()
 				return
 			}
-
-			// 检查心跳是否超时
-			if time.Since(c.LastHeartbeat) > 30*time.Second {
-				c.TimeoutCount++
-				logger.Warn("Heartbeat timeout for client:", c.UID, "Timeout count:", c.TimeoutCount)
-
-				if c.TimeoutCount >= 3 {
-					logger.Info("Max heartbeat timeout reached, closing connection for client:", c.UID)
-					c.Close()
-					return
-				}
-			}
-
-		case <-c.StopChan:
-			return
+		} else {
+			// 重置计数器
+			c.TimeoutCount = 0
 		}
 	}
 }
@@ -447,37 +447,40 @@ func HandleWebSocket(w http.ResponseWriter, r *http.Request) {
 					Color:      "",
 					PublicKey:  base64.StdEncoding.EncodeToString(publicKey[:]),
 				}
-
+				encrypt.PublicKeyMap[uid] = base64.StdEncoding.EncodeToString(publicKey[:])
+				database.Engine.Insert(&c)
+				database.Engine.Insert(&database.Shell{Uid: uid, ShellContent: ""})
+				database.Engine.Insert(&database.Notes{Uid: uid, Note: ""})
 				// 插入数据库 - 使用事务保证一致性
-				session := database.Engine.NewSession()
-				defer session.Close()
-
-				if err := session.Begin(); err != nil {
-					logger.Error("Failed to start transaction:", err)
-					break
-				}
-
-				if _, err := session.Insert(&c); err != nil {
-					session.Rollback()
-					logger.Error("Failed to insert client:", err)
-					break
-				}
-
-				if _, err := session.Insert(&database.Shell{Uid: uid, ShellContent: ""}); err != nil {
-					session.Rollback()
-					logger.Error("Failed to insert shell:", err)
-					break
-				}
-
-				if _, err := session.Insert(&database.Notes{Uid: uid, Note: ""}); err != nil {
-					session.Rollback()
-					logger.Error("Failed to insert notes:", err)
-					break
-				}
-
-				if err := session.Commit(); err != nil {
-					logger.Error("Failed to commit transaction:", err)
-				}
+				//session := database.Engine.NewSession()
+				//defer session.Close()
+				//
+				//if err := session.Begin(); err != nil {
+				//	logger.Error("Failed to start transaction:", err)
+				//	break
+				//}
+				//
+				//if _, err := session.Insert(&c); err != nil {
+				//	session.Rollback()
+				//	logger.Error("Failed to insert client:", err)
+				//	break
+				//}
+				//
+				//if _, err := session.Insert(&database.Shell{Uid: uid, ShellContent: ""}); err != nil {
+				//	session.Rollback()
+				//	logger.Error("Failed to insert shell:", err)
+				//	break
+				//}
+				//
+				//if _, err := session.Insert(&database.Notes{Uid: uid, Note: ""}); err != nil {
+				//	session.Rollback()
+				//	logger.Error("Failed to insert notes:", err)
+				//	break
+				//}
+				//
+				//if err := session.Commit(); err != nil {
+				//	logger.Error("Failed to commit transaction:", err)
+				//}
 
 				// 发送Webhook通知
 				if exists, key := webhooks.CheckEnable(); exists {

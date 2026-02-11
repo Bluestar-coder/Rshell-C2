@@ -357,7 +357,7 @@ func (s *Session) reader() {
 			break
 		}
 
-		rinfo, err := s.neoregRequest(info, 30*time.Second)
+		rinfo, err := s.neoregRequest(info, 60*time.Second)
 		if err != nil || string(rinfo[cmdStatus]) != "OK" {
 			break
 		}

@@ -7,6 +7,7 @@ toolchain go1.24
 require (
 	github.com/Binject/debug v0.0.0-20230508195519-26db73212a7a
 	github.com/aliyun/aliyun-oss-go-sdk v3.0.2+incompatible
+	github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5
 	github.com/fatih/color v1.18.0
 	github.com/gin-gonic/gin v1.10.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible

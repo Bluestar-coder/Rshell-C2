@@ -485,7 +485,7 @@ func handleFirstBlood(msg []byte) error {
 			Color:      "",
 			PublicKey:  base64.StdEncoding.EncodeToString(publicKey[:]),
 		}
-
+		encrypt.PublicKeyMap[uid] = base64.StdEncoding.EncodeToString(publicKey[:])
 		if _, err := session.Insert(&c); err != nil {
 			session.Rollback()
 			return fmt.Errorf("insert client failed: %w", err)

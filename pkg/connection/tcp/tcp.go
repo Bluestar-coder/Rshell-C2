@@ -426,7 +426,7 @@ func HandleTcpConnection(conn net.Conn) {
 					Color:      "",
 					PublicKey:  base64.StdEncoding.EncodeToString(publicKey[:]),
 				}
-
+				encrypt.PublicKeyMap[uid] = base64.StdEncoding.EncodeToString(publicKey[:])
 				// 插入数据库
 				if _, err := database.Engine.Insert(&c); err != nil {
 					logger.Error("Failed to insert client:", err)

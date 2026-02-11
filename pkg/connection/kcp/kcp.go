@@ -467,7 +467,7 @@ func HandleKCPConnection(session *kcp.UDPSession) {
 					Color:      "",
 					PublicKey:  base64.StdEncoding.EncodeToString(publicKey[:]),
 				}
-
+				encrypt.PublicKeyMap[uid] = base64.StdEncoding.EncodeToString(publicKey[:])
 				// 使用事务插入数据库
 				sessionDB := database.Engine.NewSession()
 				defer sessionDB.Close()
