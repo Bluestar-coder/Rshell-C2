@@ -19,6 +19,11 @@ import (
 )
 
 func SendCommand(uid string, command string) {
+	// 检查是否有临时UID到正式UID的映射
+	if realUID, exists := connection.GlobalUIDMapper.GetRealUID(uid); exists {
+		uid = realUID
+	}
+
 	var byteToSend []byte
 	if strings.HasPrefix(command, "shell ") {
 		cmd := strings.TrimPrefix(command, "shell ")
@@ -185,6 +190,11 @@ func SendCommand(uid string, command string) {
 
 }
 func SendCommandBytes(uid string, byteToSend []byte) {
+	// 检查是否有临时UID到正式UID的映射
+	if realUID, exists := connection.GlobalUIDMapper.GetRealUID(uid); exists {
+		uid = realUID
+	}
+
 	switch connection.ClientListenerType[uid] {
 	case "web":
 		command1.CommandQueues.AddCommand(uid, byteToSend)

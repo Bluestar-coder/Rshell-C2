@@ -267,6 +267,10 @@ func (s *Session) neoregRequest(info map[int][]byte, timeout time.Duration) (map
 
 	body := encodeBody(info, s.client.Conf)
 
+	// 记录请求信息，便于调试
+	cmdStr := string(info[cmdCommand])
+	logger.Debug("SOCKS5 Request:", cmdStr, "UID:", s.client.Conf.Uid, "Target:", s.target, "Port:", s.port)
+
 	queue := command.VarSocks5Queue.GetOrCreateQueue(s.client.Conf.Uid, fmt.Sprintf("%x", md5.Sum(body)))
 	sendcommand.SendCommand(s.client.Conf.Uid, "socks5data "+string(body))
 
@@ -279,15 +283,19 @@ func (s *Session) neoregRequest(info map[int][]byte, timeout time.Duration) (map
 		rinfo := decodeBody(rdata, s.client.Conf)
 
 		if rinfo == nil {
+			logger.Error("SOCKS5 Response format error:", cmdStr, "UID:", s.client.Conf.Uid)
 			return nil, fmt.Errorf("response format error: %s", string(rawBody))
 		}
 
 		if string(rinfo[cmdStatus]) != "OK" && string(info[cmdCommand]) != "DISCONNECT" {
-			logger.Error("Error: ", info[cmdCommand], s.target, s.port, rinfo[cmdError])
+			logger.Error("SOCKS5 Error:", cmdStr, "Target:", s.target, "Port:", s.port, "Error:", string(rinfo[cmdError]), "UID:", s.client.Conf.Uid)
+		} else {
+			logger.Debug("SOCKS5 Success:", cmdStr, "Target:", s.target, "Port:", s.port, "UID:", s.client.Conf.Uid)
 		}
 
 		return rinfo, nil
 	case <-ctx.Done():
+		logger.Error("SOCKS5 Timeout:", cmdStr, "Target:", s.target, "Port:", s.port, "Timeout:", timeout, "UID:", s.client.Conf.Uid)
 		return nil, ctx.Err()
 	}
 }
@@ -307,14 +315,31 @@ func (s *Session) setupRemoteSession(target string, port int) string {
 	var rinfo map[int][]byte
 	var err error
 
-	timeout := 500 * time.Millisecond
+	timeout := 10 * time.Second
 
-	rinfo, err = s.neoregRequest(info, timeout)
-	if err != nil {
-		return s.mark
+	// 增加重试机制，处理临时UID转换的情况
+	maxRetries := 3
+	for attempt := 1; attempt <= maxRetries; attempt++ {
+		rinfo, err = s.neoregRequest(info, timeout)
+		if err == nil {
+			break
+		}
+
+		// 如果是超时错误，等待一段时间后重试
+		if err == context.DeadlineExceeded && attempt < maxRetries {
+			logger.Warn("SOCKS5 CONNECT timeout, retrying...", "attempt:", attempt, "/", maxRetries)
+			time.Sleep(time.Duration(attempt) * time.Second)
+			continue
+		}
+
+		// 其他错误直接返回
+		if err != nil {
+			logger.Error("SOCKS5 CONNECT failed:", err, "Target:", target, "Port:", port)
+			return s.mark
+		}
 	}
 
-	if string(rinfo[cmdStatus]) == "OK" {
+	if rinfo != nil && string(rinfo[cmdStatus]) == "OK" {
 		return s.mark
 	}
 	return ""

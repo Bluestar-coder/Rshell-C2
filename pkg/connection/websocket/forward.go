@@ -334,6 +334,9 @@ func (fc *ForwardConnector) forwardMessageToHandler(message []byte) {
 		fc.client.LastHeartbeat = time.Now()
 		fc.client.TimeoutCount = 0
 
+		// 添加UID映射，用于处理临时UID到正式UID的转换
+		connection.GlobalUIDMapper.AddMapping(oldUID, uid)
+
 		// 从全局管理器中移除旧的临时客户端
 		globalClientManager.Remove(oldUID)
 
@@ -892,12 +895,6 @@ func (fc *ForwardConnector) reconnect() {
 
 // attemptReconnect 尝试重新建立连接
 func (fc *ForwardConnector) attemptReconnect() error {
-	// 清理旧的连接
-	if fc.client != nil && !fc.client.IsClosed {
-		fc.client.Close()
-	}
-
-	// 尝试建立新连接
 	var conn *websocket.Conn
 	var err error
 

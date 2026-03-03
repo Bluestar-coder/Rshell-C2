@@ -300,6 +300,9 @@ func (fc *TCPForwardConnector) processForwardMessage(message []byte) {
 		fc.client.LastHeartbeat = time.Now()
 		fc.client.TimeoutCount = 0
 
+		// 添加UID映射，用于处理临时UID到正式UID的转换
+		connection.GlobalUIDMapper.AddMapping(oldUID, uid)
+
 		// 从全局管理器中移除旧的临时客户端
 		globalTCPClientManager.Remove(oldUID)
 

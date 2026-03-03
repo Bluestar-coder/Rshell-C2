@@ -1,6 +1,9 @@
 package command
 
-import "sync"
+import (
+	"Rshell/pkg/connection"
+	"sync"
+)
 
 type Socks5Queue struct {
 	mutex  sync.Mutex
@@ -12,6 +15,12 @@ var VarSocks5Queue = &Socks5Queue{Queues: make(map[string]map[string]chan string
 func (q *Socks5Queue) Add(uid string, dataMd5, rawData string) {
 	q.mutex.Lock()
 	defer q.mutex.Unlock()
+
+	// 检查是否有临时UID到正式UID的映射
+	if realUID, exists := connection.GlobalUIDMapper.GetRealUID(uid); exists {
+		uid = realUID
+	}
+
 	if q.Queues[uid] == nil {
 		q.Queues[uid] = make(map[string]chan string)
 	}
@@ -30,6 +39,12 @@ func (q *Socks5Queue) Add(uid string, dataMd5, rawData string) {
 func (q *Socks5Queue) GetOrCreateQueue(uid string, dataMd5 string) chan string {
 	q.mutex.Lock()
 	defer q.mutex.Unlock()
+
+	// 检查是否有临时UID到正式UID的映射
+	if realUID, exists := connection.GlobalUIDMapper.GetRealUID(uid); exists {
+		uid = realUID
+	}
+
 	if q.Queues[uid] == nil {
 		q.Queues[uid] = make(map[string]chan string)
 	}
