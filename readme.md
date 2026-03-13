@@ -155,8 +155,8 @@ windows内存执行 支持Execute Assembly(.net程序内存执行)、Inline Bin(
 - [ ] 一键退出所有终端
 - [ ] 文件下载增加中断功能  [#21](https://github.com/Rubby2001/Rshell---A-Cross-Platform-C2/issues/21)
 - [ ] 截图功能  [#9](https://github.com/Rubby2001/Rshell---A-Cross-Platform-C2/issues/9)
-- [ ] linux内存执行
-- [ ] web托管bash、bat脚本  [#24](https://github.com/Rubby2001/Rshell---A-Cross-Platform-C2/issues/24)
+- [x] linux内存执行
+- [x] web托管bash、bat脚本  [#24](https://github.com/Rubby2001/Rshell---A-Cross-Platform-C2/issues/24)  (合并到内存执行)
 - [ ] 增加MCP功能
 - [ ] 笔记功能增加图床
 - [ ] 笔记md格式所见即所得
